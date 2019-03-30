@@ -34,6 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panelTop = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonParse = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelPrice = new System.Windows.Forms.Label();
@@ -70,12 +71,20 @@
             // panelTop
             // 
             this.panelTop.BackColor = System.Drawing.Color.White;
+            this.panelTop.Controls.Add(this.textBox1);
             this.panelTop.Controls.Add(this.buttonParse);
             this.panelTop.Location = new System.Drawing.Point(-8, 0);
             this.panelTop.Margin = new System.Windows.Forms.Padding(0);
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(1000, 108);
             this.panelTop.TabIndex = 0;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(38, 62);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(752, 32);
+            this.textBox1.TabIndex = 4;
             // 
             // buttonParse
             // 
@@ -269,6 +278,7 @@
             this.milageCol,
             this.locationCol,
             this.priceCol});
+            this.dataGrid.ContextMenuStrip = this.contextMenuRows;
             this.dataGrid.GridColor = System.Drawing.SystemColors.Window;
             this.dataGrid.Location = new System.Drawing.Point(9, 194);
             this.dataGrid.Margin = new System.Windows.Forms.Padding(0);
@@ -294,12 +304,13 @@
             this.dataGrid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Transparent;
             this.dataGrid.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.DimGray;
             this.dataGrid.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGrid.RowTemplate.Height = 107;
+            this.dataGrid.RowTemplate.Height = 98;
             this.dataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGrid.Size = new System.Drawing.Size(966, 518);
+            this.dataGrid.Size = new System.Drawing.Size(966, 458);
             this.dataGrid.TabIndex = 2;
+            this.dataGrid.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellMouseEnter);
             this.dataGrid.SelectionChanged += new System.EventHandler(this.dataGrid_SelectionChanged);
             // 
             // State
@@ -370,7 +381,7 @@
             this.addToFavorites});
             this.contextMenuRows.Name = "contextMenuRows";
             this.contextMenuRows.ShowImageMargin = false;
-            this.contextMenuRows.Size = new System.Drawing.Size(171, 52);
+            this.contextMenuRows.Size = new System.Drawing.Size(171, 74);
             // 
             // showInBrowser
             // 
@@ -380,6 +391,7 @@
             this.showInBrowser.Text = "Show in browser";
             this.showInBrowser.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.showInBrowser.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.showInBrowser.Click += new System.EventHandler(this.showInBrowser_Click);
             // 
             // addToFavorites
             // 
@@ -405,7 +417,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(984, 721);
+            this.ClientSize = new System.Drawing.Size(984, 661);
             this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelTop);
@@ -418,6 +430,7 @@
             this.Text = "Find Auto";
             this.Activated += new System.EventHandler(this.Main_Activated);
             this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
@@ -456,6 +469,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn priceCol;
         private System.Windows.Forms.BindingSource searchDataSetBindingSource;
         private searchDataSet searchDataSet;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

@@ -56,6 +56,7 @@ namespace Find_Auto
             // comboBoxBrand
             // 
             this.comboBoxBrand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.comboBoxBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxBrand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxBrand.FormattingEnabled = true;
             this.comboBoxBrand.Location = new System.Drawing.Point(53, 215);
@@ -63,7 +64,6 @@ namespace Find_Auto
             this.comboBoxBrand.Name = "comboBoxBrand";
             this.comboBoxBrand.Size = new System.Drawing.Size(351, 32);
             this.comboBoxBrand.TabIndex = 1;
-            this.comboBoxBrand.SelectedIndexChanged += new System.EventHandler(this.comboBoxBrand_SelectedIndexChanged);
             this.comboBoxBrand.SelectionChangeCommitted += new System.EventHandler(this.comboBoxBrand_SelectionChangeCommitted);
             // 
             // label1
@@ -73,9 +73,9 @@ namespace Find_Auto
             this.label1.Location = new System.Drawing.Point(49, 185);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 24);
+            this.label1.Size = new System.Drawing.Size(136, 24);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Select brand";
+            this.label1.Text = "Select brand *";
             // 
             // openDialog
             // 
@@ -107,13 +107,14 @@ namespace Find_Auto
             this.label3.Location = new System.Drawing.Point(49, 111);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 24);
+            this.label3.Size = new System.Drawing.Size(118, 24);
             this.label3.TabIndex = 11;
-            this.label3.Text = "Select site";
+            this.label3.Text = "Select site *";
             // 
             // comboBoxSite
             // 
             this.comboBoxSite.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.comboBoxSite.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxSite.FormattingEnabled = true;
             this.comboBoxSite.IntegralHeight = false;
@@ -123,7 +124,6 @@ namespace Find_Auto
             this.comboBoxSite.Name = "comboBoxSite";
             this.comboBoxSite.Size = new System.Drawing.Size(351, 32);
             this.comboBoxSite.TabIndex = 0;
-            this.comboBoxSite.SelectedIndexChanged += new System.EventHandler(this.comboBoxSite_SelectedIndexChanged);
             this.comboBoxSite.SelectionChangeCommitted += new System.EventHandler(this.comboBoxSite_SelectionChangeCommitted);
             // 
             // label4
@@ -140,6 +140,7 @@ namespace Find_Auto
             // comboBoxModel
             // 
             this.comboBoxModel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.comboBoxModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxModel.FormattingEnabled = true;
             this.comboBoxModel.Location = new System.Drawing.Point(53, 281);
@@ -147,7 +148,6 @@ namespace Find_Auto
             this.comboBoxModel.Name = "comboBoxModel";
             this.comboBoxModel.Size = new System.Drawing.Size(351, 32);
             this.comboBoxModel.TabIndex = 2;
-            this.comboBoxModel.SelectedIndexChanged += new System.EventHandler(this.comboBoxModel_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -163,6 +163,7 @@ namespace Find_Auto
             // comboBoxMinPrice
             // 
             this.comboBoxMinPrice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.comboBoxMinPrice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMinPrice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxMinPrice.FormattingEnabled = true;
             this.comboBoxMinPrice.Location = new System.Drawing.Point(53, 419);
@@ -170,11 +171,11 @@ namespace Find_Auto
             this.comboBoxMinPrice.Name = "comboBoxMinPrice";
             this.comboBoxMinPrice.Size = new System.Drawing.Size(162, 32);
             this.comboBoxMinPrice.TabIndex = 5;
-            this.comboBoxMinPrice.SelectedIndexChanged += new System.EventHandler(this.comboBoxMinPrice_SelectedIndexChanged);
             // 
             // comboBoxMaxPrice
             // 
             this.comboBoxMaxPrice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.comboBoxMaxPrice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMaxPrice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxMaxPrice.FormattingEnabled = true;
             this.comboBoxMaxPrice.Location = new System.Drawing.Point(242, 419);
@@ -182,11 +183,11 @@ namespace Find_Auto
             this.comboBoxMaxPrice.Name = "comboBoxMaxPrice";
             this.comboBoxMaxPrice.Size = new System.Drawing.Size(162, 32);
             this.comboBoxMaxPrice.TabIndex = 6;
-            this.comboBoxMaxPrice.SelectedIndexChanged += new System.EventHandler(this.comboBoxMaxPrice_SelectedIndexChanged);
             // 
             // comboBoxMaxYear
             // 
             this.comboBoxMaxYear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.comboBoxMaxYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMaxYear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxMaxYear.FormattingEnabled = true;
             this.comboBoxMaxYear.Location = new System.Drawing.Point(242, 345);
@@ -194,12 +195,11 @@ namespace Find_Auto
             this.comboBoxMaxYear.Name = "comboBoxMaxYear";
             this.comboBoxMaxYear.Size = new System.Drawing.Size(162, 32);
             this.comboBoxMaxYear.TabIndex = 4;
-            this.comboBoxMaxYear.SelectedIndexChanged += new System.EventHandler(this.comboBoxMaxYear_SelectedIndexChanged);
-            this.comboBoxMaxYear.SelectedValueChanged += new System.EventHandler(this.comboBoxMaxYear_SelectedValueChanged);
             // 
             // comboBoxMinYear
             // 
             this.comboBoxMinYear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.comboBoxMinYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMinYear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxMinYear.FormattingEnabled = true;
             this.comboBoxMinYear.Location = new System.Drawing.Point(53, 345);
@@ -207,7 +207,6 @@ namespace Find_Auto
             this.comboBoxMinYear.Name = "comboBoxMinYear";
             this.comboBoxMinYear.Size = new System.Drawing.Size(162, 32);
             this.comboBoxMinYear.TabIndex = 3;
-            this.comboBoxMinYear.SelectedIndexChanged += new System.EventHandler(this.comboBoxMinYear_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -310,6 +309,7 @@ namespace Find_Auto
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SelectProject";
+            this.ShowInTaskbar = false;
             this.Text = "Select or Create New Project";
             ((System.ComponentModel.ISupportInitialize)(this.searchDataSet)).EndInit();
             this.ResumeLayout(false);

@@ -3,6 +3,8 @@ using AngleSharp.Html.Parser;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 
 using System.Windows.Forms;
@@ -15,21 +17,29 @@ namespace Find_Auto
         public int siteId;
         public string tablePrefix;
         public string brandValue;
+        public string brandName;
         public string modelValue;
+        public string modelName;
         public string minPrice;
         public string maxPrice;
         public string minYear;
         public string maxYear;
         public string searchString;
+        public int searchId;
 
         bool isLoading=false;
 
         HtmlLoader loader;
 
+        string[] links;
+
+        private DataGridViewCellEventArgs mouseLocation;
+
         public Main()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
+
+            StartPosition = FormStartPosition.CenterScreen;
             SelectProject selectForm = new SelectProject();
             selectForm.StartPosition = FormStartPosition.CenterScreen;
             selectForm.Owner = this;
@@ -55,42 +65,47 @@ namespace Find_Auto
                     break;
             }
 
-            labelBrand.Text = brandValue;
-            labelModel.Text = modelValue;
+            labelBrand.Text = brandName;
+            labelModel.Text = modelName;
             string tMinPrice,tMaxPrice,tMinYear,tMaxYear;
             if (brandValue!=null)
                 searchString += "/" + brandValue.ToLower();
-
+                else
+                labelBrand.Text = "N/A";
             if (modelValue != null)
-                searchString += "/" + modelValue+"?";
-                else searchString += "/vaihtoautot?";
-            if (minPrice != null)
+                searchString += "/" + modelValue + "?";
+                else
+                {
+                searchString += "/vaihtoautot?";
+                labelModel.Text = "N/A";
+                }
+            if (minPrice != "")
             {
                 searchString += "pfrom=" + minPrice + "&";
                 tMinPrice = minPrice;
             }
             else tMinPrice = "N/A";
 
-            if (maxPrice != null)
+            if (maxPrice != "")
             {
                 searchString += "pto=" + maxPrice + "&";
                 tMaxPrice = maxPrice;
             }
             else tMaxPrice = "N/A";
-            if (minYear != null)
+            if (minYear != "")
             {
                 searchString += "yfrom=" + minYear + "&";
                 tMinYear = minYear;
             }
             else tMinYear = "N/A";
-            if (maxYear != null)
+            if (maxYear != "")
             {
                 searchString += "yto=" + maxYear + "&";
                 tMaxYear = maxYear;
             }
             else tMaxYear = "N/A";
 
-            //textBox1.Text = searchString;
+            textBox1.Text = searchString;
 
             labelYear.Text = tMinYear + " - " + tMaxYear;
             labelPrice.Text = tMinPrice + " - " + tMaxPrice + "  €";
@@ -100,6 +115,7 @@ namespace Find_Auto
         {
             if (!isLoading)
             {
+                links = null;
                 dataGrid.Rows.Clear();
                 LoadingData();
             }
@@ -118,6 +134,7 @@ namespace Find_Auto
             var yearParsed = ParseYears(document);
             var locationParsed = ParseLocations(document);
             var priceParsed = ParsePrices(document);
+            links = ParseLinks(document);
 
             dataGrid.ClearSelection();
             for (int i = 0; i < modelParsed.Length; i++)
@@ -130,6 +147,7 @@ namespace Find_Auto
                     dataString[2].Trim(), 
                     locationParsed[i].Substring(0, locationParsed[i].IndexOf('›')),
                     priceParsed[i].Trim());
+                //links[i] = linkParsed[i];
             }
             isLoading = false;
         }
@@ -185,11 +203,40 @@ namespace Find_Auto
             }
             return list.ToArray();
         }
-
+        //childVifUrl tricky_link
+        public string[] ParseLinks(IHtmlDocument document)
+        {
+            var list = new List<string>();
+            var items = document.QuerySelectorAll("a").Where(item => item.ClassName != null && item.ClassName.Contains("childVifUrl tricky_link"));
+            
+            //var items = document.QuerySelectorAll("a").Where(item => item.ClassName != null && item.ClassName.Contains("childVifUrl tricky_link"));
+            foreach (var item in items)
+            {
+                //item.GetAttribute("href");
+                list.Add(item.GetAttribute("href"));
+            }
+            return list.ToArray();
+        }
+        //
+        //----------
+        //
         private void dataGrid_SelectionChanged(object sender, EventArgs e)
         {
             dataGrid.ClearSelection();
         }
 
+        private void dataGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs location)
+        {
+            mouseLocation = location;
+        }
+
+        private void showInBrowser_Click(object sender, EventArgs e)
+        {
+
+            Process.Start(links[mouseLocation.RowIndex]);
+            //MessageBox.Show(mouseLocation.RowIndex.ToString());
+            //MessageBox.Show(links[mouseLocation.RowIndex]);
+        
+        }
     }
 }
