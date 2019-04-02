@@ -11,7 +11,7 @@ namespace Find_Auto
     public partial class SelectProject : Form
     {
         public string connString;
-        int insertId;
+        int insertedId;
 
         public SelectProject()
         {
@@ -83,8 +83,6 @@ namespace Find_Auto
                 comboBoxMinYear.Items.Add(i.ToString());
                 comboBoxMaxYear.Items.Add(i.ToString());
             }
-
-
         }
 
 
@@ -103,8 +101,6 @@ namespace Find_Auto
 
             if (comboBoxSite.SelectedValue.ToString() != null)
             {
-                //Main mainForm = this.Owner as Main;
-                //mainForm.siteId = comboBoxSite.SelectedIndex;
                 string prefixString = comboBoxSite.SelectedValue.ToString();
                 string queryBrands = "SELECT * FROM Brands" + prefixString + " ";
                 comboBoxBrand.DataSource = null;
@@ -125,36 +121,40 @@ namespace Find_Auto
 
         private void buttonCreateNew_Click(object sender, EventArgs e)
         {
-
-            string sqlString = "INSERT INTO SavedSearches " +
-                "(site, brand, model, minyear, maxyear, minprice, maxprice) " +
-                "VALUES ('"+comboBoxSite.SelectedIndex+"'," +
-                "'" + comboBoxBrand.SelectedValue.ToString() + "'," +
-                "'" + comboBoxModel.SelectedValue.ToString() + "'," +
-                "'" + comboBoxMinYear.Text + "'," +
-                "'" + comboBoxMaxYear.Text + "'," +
-                "'" + comboBoxMinPrice.Text + "'," +
-                "'" + comboBoxMaxPrice.Text + "') ";
-            
-            using (SqlConnection connection = new SqlConnection(connString))
-            {
-                connection.OpenAsync();
-                SqlCommand cmd = new SqlCommand(sqlString, connection);
-                //int number = cmd.ExecuteNonQuery();
-                insertId = (int)cmd.ExecuteScalar();
-            }
-            MessageBox.Show(insertId.ToString());
             Main mainForm = this.Owner as Main;
-
+            mainForm.searchId = insertedId;
             mainForm.siteId = comboBoxSite.SelectedIndex;
-            mainForm.brandValue = comboBoxBrand.SelectedValue.ToString();
+            if (comboBoxBrand.SelectedIndex >= 0)
+                mainForm.brandValue = comboBoxBrand.SelectedValue.ToString();
             mainForm.brandName = comboBoxBrand.Text;
-            mainForm.modelValue = comboBoxModel.SelectedValue.ToString();
+            if (comboBoxModel.SelectedIndex >= 0)
+                mainForm.modelValue = comboBoxModel.SelectedValue.ToString();
             mainForm.modelName = comboBoxModel.Text;
             mainForm.minPrice = comboBoxMinPrice.Text;
             mainForm.maxPrice = comboBoxMaxPrice.Text;
             mainForm.minYear = comboBoxMinYear.Text;
             mainForm.maxYear = comboBoxMaxYear.Text;
+
+            string sqlString = "INSERT INTO SavedSearches " +
+                "(site, brand, model, minyear, maxyear, minprice, maxprice) " +
+                "OUTPUT INSERTED.[Id] " +
+                "VALUES ('"+comboBoxSite.SelectedIndex+"'," +
+                "'" + mainForm.brandValue + "'," +
+                "'" + mainForm.modelValue + "'," +
+                "'" + comboBoxMinYear.Text + "'," +
+                "'" + comboBoxMaxYear.Text + "'," +
+                "'" + comboBoxMinPrice.Text + "'," +
+                "'" + comboBoxMaxPrice.Text + "') " +
+                "";
+            
+            using (SqlConnection connection = new SqlConnection(connString))
+            {
+                connection.OpenAsync();
+                SqlCommand cmd = new SqlCommand(sqlString, connection);
+                insertedId = (int) cmd.ExecuteScalar();
+            }
+            mainForm.searchId = insertedId;
+
             Hide();
         }
 
@@ -165,10 +165,8 @@ namespace Find_Auto
             
             if (comboBoxBrand.SelectedValue.ToString() != null)
             {
-                //Main mainForm = this.Owner as Main;
                 string prefixString = comboBoxSite.SelectedValue.ToString();
                 string brandValue = comboBoxBrand.SelectedValue.ToString();
-                //mainForm.brandValue = comboBoxBrand.Text;
                 string queryModels = "SELECT " +
                     "Models" + prefixString + ".modelname, " +
                     "Models" + prefixString + ".modelvalue, " +

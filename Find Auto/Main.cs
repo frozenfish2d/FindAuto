@@ -1,12 +1,10 @@
 ﻿using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
+using Find_Auto.Core;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-
+using System.Net;
 using System.Windows.Forms;
 
 
@@ -29,11 +27,11 @@ namespace Find_Auto
 
         bool isLoading=false;
 
+        int pages;
+
         HtmlLoader loader;
 
-        string[] links;
-
-        private DataGridViewCellEventArgs mouseLocation;
+        Parsing parsing;
 
         public Main()
         {
@@ -43,9 +41,10 @@ namespace Find_Auto
             SelectProject selectForm = new SelectProject();
             selectForm.StartPosition = FormStartPosition.CenterScreen;
             selectForm.Owner = this;
-            selectForm.ShowDialog();
             selectForm.TopMost = true;
+            selectForm.ShowDialog();
             loader = new HtmlLoader();
+            parsing = new Parsing();
         }
 
         private void Main_Activated(object sender, EventArgs e)
@@ -106,7 +105,6 @@ namespace Find_Auto
             else tMaxYear = "N/A";
 
             textBox1.Text = searchString;
-
             labelYear.Text = tMinYear + " - " + tMaxYear;
             labelPrice.Text = tMinPrice + " - " + tMaxPrice + "  €";
         }
@@ -115,7 +113,6 @@ namespace Find_Auto
         {
             if (!isLoading)
             {
-                links = null;
                 dataGrid.Rows.Clear();
                 LoadingData();
             }
@@ -127,96 +124,59 @@ namespace Find_Auto
             var domParser = new HtmlParser();
             var source = await loader.GetSource(searchString);
             var document = await domParser.ParseDocumentAsync(source);
-
-
-            var modelParsed = ParseModels(document);
-            var descriptionParsed = ParseDescriptions(document);
-            var yearParsed = ParseYears(document);
-            var locationParsed = ParseLocations(document);
-            var priceParsed = ParsePrices(document);
-            links = ParseLinks(document);
-
-            dataGrid.ClearSelection();
-            for (int i = 0; i < modelParsed.Length; i++)
+            var pageParsed = parsing.ParsePages(document);
+            pages = Convert.ToInt32(pageParsed[0]);
+            if (pages <= 1)
             {
-                string[] dataString = yearParsed[i].Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); ;
-                dataGrid.Rows.Add("",
-                    modelParsed[i], 
-                    descriptionParsed[i].TrimStart(),
-                    dataString[1].Trim(),
-                    dataString[2].Trim(), 
-                    locationParsed[i].Substring(0, locationParsed[i].IndexOf('›')),
-                    priceParsed[i].Trim());
-                //links[i] = linkParsed[i];
+                ParsingAllData(document);
+            }
+            else
+            {
+                for(int i=1; i <= pages; i++)
+                {
+                    source = await loader.GetSource(searchString+"page="+i.ToString());
+                    document = await domParser.ParseDocumentAsync(source);
+                    ParsingAllData(document);
+                }
+
             }
             isLoading = false;
         }
 
-        public string[] ParseModels(IHtmlDocument document)
+        private void ParsingAllData(IHtmlDocument document)
         {
-            var list = new List<string>();
-            var items = document.QuerySelectorAll("div").Where(item => item.ClassName != null && item.ClassName.Contains("make_model_link"));
-            foreach (var item in items)
+            var modelParsed = parsing.ParseModels(document);
+            var descriptionParsed = parsing.ParseDescriptions(document);
+            var year_mileageParsed = parsing.ParseYears(document);
+            var locationParsed = parsing.ParseLocations(document);
+            var priceParsed = parsing.ParsePrices(document);
+            var linkParsed = parsing.ParseLinks(document);
+
+            dataGrid.ClearSelection();
+            string imgId;
+            for (int i = 0; i < modelParsed.Length; i++)
             {
-                list.Add(item.TextContent);
+                string[] imgSrc = linkParsed[i].Split(new char[] { '/' });
+                imgId = imgSrc[imgSrc.Length - 1];
+                WebClient wc = new WebClient();
+                var imgParsed = parsing.ParseImgs(document, imgId);
+                //Uri uri = new Uri(imgParsed[0]);
+                Image img = new Bitmap(wc.OpenRead(imgParsed[0]));
+                string[] dataString = year_mileageParsed[i].Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); ;
+                dataGrid.Rows.Add(linkParsed[i].Trim(),
+                    "",
+                    img,
+                    modelParsed[i],
+                    descriptionParsed[i].TrimStart(),
+                    dataString[1].Trim(),   //year
+                    dataString[2].Trim(),   // mileage
+                    locationParsed[i].Substring(0, locationParsed[i].IndexOf('›')),
+                    priceParsed[i].Trim()
+                    );
             }
-            return list.ToArray();
         }
-        public string[] ParseDescriptions(IHtmlDocument document)
-        {
-            var list = new List<string>();
-            var items = document.QuerySelectorAll("div").Where(item => item.ClassName != null && item.ClassName.Contains("checkLnesFlat"));
-            foreach (var item in items)
-            {
-                list.Add(item.TextContent);
-            }
-            return list.ToArray();
-        }
-        public string[] ParseLocations(IHtmlDocument document)
-        {
-            var list = new List<string>();
-            var items = document.QuerySelectorAll("span").Where(item => item.ClassName != null && item.ClassName.Contains("list_seller_info"));
-            foreach (var item in items)
-            {
-                list.Add(item.TextContent);
-            }
-            return list.ToArray();
-        }
-        public string[] ParseYears(IHtmlDocument document)
-        {
-            var list = new List<string>();
-            var items = document.QuerySelectorAll("div").Where(item => item.ClassName != null && item.ClassName.Contains("vehicle_other_info clearfix_nett"));
-            foreach (var item in items)
-            {
-                list.Add(item.TextContent);
-            }
-            return list.ToArray();
-        }
-        //main_price
-        public string[] ParsePrices(IHtmlDocument document)
-        {
-            var list = new List<string>();
-            var items = document.QuerySelectorAll("div").Where(item => item.ClassName != null && item.ClassName.Contains("main_price"));
-            foreach (var item in items)
-            {
-                list.Add(item.TextContent);
-            }
-            return list.ToArray();
-        }
-        //childVifUrl tricky_link
-        public string[] ParseLinks(IHtmlDocument document)
-        {
-            var list = new List<string>();
-            var items = document.QuerySelectorAll("a").Where(item => item.ClassName != null && item.ClassName.Contains("childVifUrl tricky_link"));
-            
-            //var items = document.QuerySelectorAll("a").Where(item => item.ClassName != null && item.ClassName.Contains("childVifUrl tricky_link"));
-            foreach (var item in items)
-            {
-                //item.GetAttribute("href");
-                list.Add(item.GetAttribute("href"));
-            }
-            return list.ToArray();
-        }
+
+
         //
         //----------
         //
@@ -225,18 +185,17 @@ namespace Find_Auto
             dataGrid.ClearSelection();
         }
 
-        private void dataGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs location)
+
+
+        private void dataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            mouseLocation = location;
+            if (e.RowIndex == -1)
+                return;
+            Process.Start(dataGrid.Rows[e.RowIndex].Cells[0].Value.ToString());
+            dataGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.FromArgb(197, 197, 197);
+
         }
 
-        private void showInBrowser_Click(object sender, EventArgs e)
-        {
 
-            Process.Start(links[mouseLocation.RowIndex]);
-            //MessageBox.Show(mouseLocation.RowIndex.ToString());
-            //MessageBox.Show(links[mouseLocation.RowIndex]);
-        
-        }
     }
 }
