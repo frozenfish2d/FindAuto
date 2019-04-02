@@ -96,7 +96,7 @@ namespace Find_Auto
             this.buttonSelect.Name = "buttonSelect";
             this.buttonSelect.Size = new System.Drawing.Size(456, 65);
             this.buttonSelect.TabIndex = 8;
-            this.buttonSelect.Text = "SELECT PROJECT";
+            this.buttonSelect.Text = "SEARCH HISTORY";
             this.buttonSelect.UseVisualStyleBackColor = false;
             this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
             // 
@@ -120,7 +120,7 @@ namespace Find_Auto
             this.comboBoxSite.IntegralHeight = false;
             this.comboBoxSite.ItemHeight = 24;
             this.comboBoxSite.Location = new System.Drawing.Point(53, 139);
-            this.comboBoxSite.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxSite.Margin = new System.Windows.Forms.Padding(0);
             this.comboBoxSite.Name = "comboBoxSite";
             this.comboBoxSite.Size = new System.Drawing.Size(351, 32);
             this.comboBoxSite.TabIndex = 0;

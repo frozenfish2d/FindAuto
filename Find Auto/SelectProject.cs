@@ -2,7 +2,6 @@
 
 using System.Data;
 using System.Data.SqlClient;
-
 using System.Windows.Forms;
 
 namespace Find_Auto
@@ -20,17 +19,16 @@ namespace Find_Auto
             connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Find Auto\Find Auto\searchData.mdf;Integrated Security=True;Connect Timeout=30";
             using (SqlConnection connection = new SqlConnection(connString))
             {
-                SqlCommand cmd1 = new SqlCommand(querySites, connection);
-                DataTable tbl1 = new DataTable();
-                SqlDataAdapter da = new SqlDataAdapter(cmd1);
-                da.Fill(tbl1);
-                comboBoxSite.DataSource = tbl1;
+                SqlCommand cmd = new SqlCommand(querySites, connection);
+                DataTable dataTable = new DataTable();
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
+                dataAdapter.Fill(dataTable);
+                comboBoxSite.DataSource = dataTable;
                 comboBoxSite.DisplayMember = "sitename"; 
                 comboBoxSite.ValueMember = "tableprefix";            
                 comboBoxSite.SelectedIndex = -1;
                 connection.Close();
             }
-
             comboBoxMinPrice.Items.Add("1");
             comboBoxMinPrice.Items.Add("500");
             comboBoxMinPrice.Items.Add("1500");
@@ -107,11 +105,11 @@ namespace Find_Auto
                 comboBoxBrand.Items.Clear();
                 using (SqlConnection connection = new SqlConnection(connString))
                 {
-                    SqlCommand cmd2 = new SqlCommand(queryBrands, connection);
-                    DataTable tbl2 = new DataTable();
-                    SqlDataAdapter data = new SqlDataAdapter(cmd2);
-                    data.Fill(tbl2);
-                    comboBoxBrand.DataSource = tbl2;
+                    SqlCommand cmd = new SqlCommand(queryBrands, connection);
+                    DataTable dataTable = new DataTable();
+                    SqlDataAdapter data = new SqlDataAdapter(cmd);
+                    data.Fill(dataTable);
+                    comboBoxBrand.DataSource = dataTable;
                     comboBoxBrand.DisplayMember = "brandname";
                     comboBoxBrand.ValueMember = "brandvalue";
                     comboBoxBrand.SelectedIndex = -1;
@@ -138,15 +136,15 @@ namespace Find_Auto
             string sqlString = "INSERT INTO SavedSearches " +
                 "(site, brand, model, minyear, maxyear, minprice, maxprice) " +
                 "OUTPUT INSERTED.[Id] " +
-                "VALUES ('"+comboBoxSite.SelectedIndex+"'," +
+                "VALUES ('" + comboBoxSite.SelectedIndex + "'," +
                 "'" + mainForm.brandValue + "'," +
                 "'" + mainForm.modelValue + "'," +
                 "'" + comboBoxMinYear.Text + "'," +
                 "'" + comboBoxMaxYear.Text + "'," +
                 "'" + comboBoxMinPrice.Text + "'," +
-                "'" + comboBoxMaxPrice.Text + "') " +
-                "";
+                "'" + comboBoxMaxPrice.Text + "') " ;
             
+
             using (SqlConnection connection = new SqlConnection(connString))
             {
                 connection.OpenAsync();

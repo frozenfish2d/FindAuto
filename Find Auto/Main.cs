@@ -2,6 +2,7 @@
 using AngleSharp.Html.Parser;
 using Find_Auto.Core;
 using System;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Net;
@@ -25,9 +26,13 @@ namespace Find_Auto
         public string searchString;
         public int searchId;
 
+        string connString;
+
         bool isLoading=false;
 
         int pages;
+
+        int searchResultId;
 
         HtmlLoader loader;
 
@@ -36,7 +41,7 @@ namespace Find_Auto
         public Main()
         {
             InitializeComponent();
-
+            connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Find Auto\Find Auto\searchData.mdf;Integrated Security=True;Connect Timeout=30";
             StartPosition = FormStartPosition.CenterScreen;
             SelectProject selectForm = new SelectProject();
             selectForm.StartPosition = FormStartPosition.CenterScreen;
@@ -104,7 +109,7 @@ namespace Find_Auto
             }
             else tMaxYear = "N/A";
 
-            textBox1.Text = searchString;
+            //textBox1.Text = searchString;
             labelYear.Text = tMinYear + " - " + tMaxYear;
             labelPrice.Text = tMinPrice + " - " + tMaxPrice + "  €";
         }
@@ -127,19 +132,40 @@ namespace Find_Auto
             var pageParsed = parsing.ParsePages(document);
             pages = Convert.ToInt32(pageParsed[0]);
             if (pages <= 1)
-            {
-                ParsingAllData(document);
-            }
-            else
-            {
-                for(int i=1; i <= pages; i++)
                 {
-                    source = await loader.GetSource(searchString+"page="+i.ToString());
-                    document = await domParser.ParseDocumentAsync(source);
                     ParsingAllData(document);
                 }
+            else if (pages > 10)
+                {
+                    string message = "Search result contains "+pages * 30 + " lines.\nLoading will take a lot of time.\nAre you want to proceed?";
+                    string caption = "Search result is too big";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    DialogResult result;
+                    result = MessageBox.Show(message, caption, buttons);
+                    if (result == DialogResult.Yes)
+                    {
+                        for (int i = 1; i <= pages; i++)
+                        {
+                            source = await loader.GetSource(searchString + "page=" + i.ToString());
+                            document = await domParser.ParseDocumentAsync(source);
+                            ParsingAllData(document);
+                        }
 
-            }
+                    }
+
+
+                }
+            else
+                {
+                    for (int i = 1; i <= pages; i++)
+                    {
+                        source = await loader.GetSource(searchString + "page=" + i.ToString());
+                        document = await domParser.ParseDocumentAsync(source);
+                        ParsingAllData(document);
+                    }
+                }
+
+            
             isLoading = false;
         }
 
@@ -151,7 +177,6 @@ namespace Find_Auto
             var locationParsed = parsing.ParseLocations(document);
             var priceParsed = parsing.ParsePrices(document);
             var linkParsed = parsing.ParseLinks(document);
-
             dataGrid.ClearSelection();
             string imgId;
             for (int i = 0; i < modelParsed.Length; i++)
@@ -163,16 +188,41 @@ namespace Find_Auto
                 //Uri uri = new Uri(imgParsed[0]);
                 Image img = new Bitmap(wc.OpenRead(imgParsed[0]));
                 string[] dataString = year_mileageParsed[i].Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); ;
+
+                string sqlString = "INSERT INTO Searches " +
+                    "(state, model, description, year, mileage,location, price, url, img, searchid) " +
+                    "OUTPUT INSERTED.[Id] " +
+                    "VALUES " +
+                    "(0, " +
+                    "'"+ modelParsed[i] + "'," +
+                    "'"+ descriptionParsed[i].TrimStart()+"', " +
+                    "'"+ dataString[1].Trim()+"', " +
+                    "'"+ dataString[2].Trim()+"', " +
+                    "'"+ locationParsed[i].Substring(0, locationParsed[i].IndexOf('›'))+"', "+
+                    "'" + priceParsed[i].Trim()+"', " +
+                    "'"+ linkParsed[i].Trim()+"', " +
+                    "'"+ imgParsed[0]+"', " +
+                    " "+ searchId+" )" ;
+                using (SqlConnection connection = new SqlConnection(connString))
+                {
+                    connection.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(sqlString, connection);
+                    searchResultId = (int)cmd.ExecuteScalar();
+                }
+
                 dataGrid.Rows.Add(linkParsed[i].Trim(),
-                    "",
+                    Properties.Resources.green,
                     img,
                     modelParsed[i],
                     descriptionParsed[i].TrimStart(),
                     dataString[1].Trim(),   //year
                     dataString[2].Trim(),   // mileage
                     locationParsed[i].Substring(0, locationParsed[i].IndexOf('›')),
-                    priceParsed[i].Trim()
+                    priceParsed[i].Trim(),
+                    searchResultId
                     );
+
+
             }
         }
 
@@ -193,9 +243,17 @@ namespace Find_Auto
                 return;
             Process.Start(dataGrid.Rows[e.RowIndex].Cells[0].Value.ToString());
             dataGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.FromArgb(197, 197, 197);
+            dataGrid.Rows[e.RowIndex].Cells[1].Value = Properties.Resources.gray;
 
         }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SelectProject selectForm = new SelectProject();
+            selectForm.StartPosition = FormStartPosition.CenterScreen;
+            selectForm.Owner = this;
+            selectForm.TopMost = true;
+            selectForm.ShowDialog();
+        }
     }
 }

@@ -144,6 +144,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SelectProject.resx">
       <DependentUpon>SelectProject.cs</DependentUpon>
@@ -187,6 +188,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="green.png" />
+    <None Include="gray.png" />
+    <None Include="purp.png" />
     <Content Include="searchData.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
