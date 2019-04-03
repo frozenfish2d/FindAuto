@@ -91,7 +91,7 @@ namespace Find_Auto
             this.buttonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSelect.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSelect.ForeColor = System.Drawing.Color.White;
-            this.buttonSelect.Location = new System.Drawing.Point(-3, 0);
+            this.buttonSelect.Location = new System.Drawing.Point(-3, -1);
             this.buttonSelect.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSelect.Name = "buttonSelect";
             this.buttonSelect.Size = new System.Drawing.Size(456, 65);
@@ -307,7 +307,9 @@ namespace Find_Auto
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(450, 570);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(450, 570);
             this.Name = "SelectProject";
             this.ShowInTaskbar = false;
             this.Text = "Select or Create New Project";

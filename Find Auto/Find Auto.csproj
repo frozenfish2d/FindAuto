@@ -133,6 +133,12 @@
     <Compile Include="SelectProject.Designer.cs">
       <DependentUpon>SelectProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShowSearches.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowSearches.Designer.cs">
+      <DependentUpon>ShowSearches.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -148,6 +154,9 @@
     </Compile>
     <EmbeddedResource Include="SelectProject.resx">
       <DependentUpon>SelectProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowSearches.resx">
+      <DependentUpon>ShowSearches.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Find Auto_TemporaryKey.pfx" />
     <None Include="packages.config" />

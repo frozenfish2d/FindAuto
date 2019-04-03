@@ -86,12 +86,18 @@ namespace Find_Auto
 
         private void buttonSelect_Click(object sender, EventArgs e)
         {
-            openDialog.InitialDirectory = Application.CommonAppDataPath;
-            if (openDialog.ShowDialog() == DialogResult.Cancel || openDialog.ShowDialog() == DialogResult.Abort)
-            {
-               
-            }
-            
+            ShowSearches searchesForm = new ShowSearches();
+            searchesForm.StartPosition = FormStartPosition.CenterScreen;
+            //searchesForm.Owner = this;
+            searchesForm.TopMost = true;
+            searchesForm.ShowDialog();
+
+            //   openDialog.InitialDirectory = Application.CommonAppDataPath;
+            //   if (openDialog.ShowDialog() == DialogResult.Cancel || openDialog.ShowDialog() == DialogResult.Abort)
+            //   {
+            //      
+            //   }
+
         }
 
         private void comboBoxSite_SelectionChangeCommitted(object sender, EventArgs e)

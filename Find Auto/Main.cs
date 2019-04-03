@@ -152,8 +152,6 @@ namespace Find_Auto
                         }
 
                     }
-
-
                 }
             else
                 {
@@ -185,8 +183,8 @@ namespace Find_Auto
                 imgId = imgSrc[imgSrc.Length - 1];
                 WebClient wc = new WebClient();
                 var imgParsed = parsing.ParseImgs(document, imgId);
-                //Uri uri = new Uri(imgParsed[0]);
-                Image img = new Bitmap(wc.OpenRead(imgParsed[0]));
+                Uri uri = new Uri(imgParsed[0]);
+                Image img = new Bitmap(wc.OpenRead(uri));
                 string[] dataString = year_mileageParsed[i].Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); ;
 
                 string sqlString = "INSERT INTO Searches " +
@@ -236,7 +234,7 @@ namespace Find_Auto
         }
 
 
-
+        //Open in browser and change state to 1
         private void dataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1)
@@ -251,7 +249,6 @@ namespace Find_Auto
                 connection.OpenAsync();
                 SqlCommand cmd = new SqlCommand(sqlString, connection);
                 cmd.ExecuteNonQuery();
-                //searchResultId = (int)cmd.ExecuteScalar();
             }
 
         }
