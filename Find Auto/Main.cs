@@ -244,6 +244,15 @@ namespace Find_Auto
             Process.Start(dataGrid.Rows[e.RowIndex].Cells[0].Value.ToString());
             dataGrid.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.FromArgb(197, 197, 197);
             dataGrid.Rows[e.RowIndex].Cells[1].Value = Properties.Resources.gray;
+            var id = dataGrid.Rows[e.RowIndex].Cells[9].Value;
+            string sqlString = "UPDATE Searches SET state=1 WHERE Id='" + id + "' "  ;
+            using (SqlConnection connection = new SqlConnection(connString))
+            {
+                connection.OpenAsync();
+                SqlCommand cmd = new SqlCommand(sqlString, connection);
+                cmd.ExecuteNonQuery();
+                //searchResultId = (int)cmd.ExecuteScalar();
+            }
 
         }
 

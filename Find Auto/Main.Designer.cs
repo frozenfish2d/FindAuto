@@ -34,7 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panelTop = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonNewSearch = new System.Windows.Forms.Button();
             this.buttonParse = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelPrice = new System.Windows.Forms.Label();
@@ -48,7 +48,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGrid = new System.Windows.Forms.DataGridView();
-            this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.linkCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.State = new System.Windows.Forms.DataGridViewImageColumn();
             this.actionCol = new System.Windows.Forms.DataGridViewImageColumn();
@@ -59,6 +58,7 @@
             this.locationCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResultSearchId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.panelTop.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
@@ -68,7 +68,7 @@
             // panelTop
             // 
             this.panelTop.BackColor = System.Drawing.Color.White;
-            this.panelTop.Controls.Add(this.button1);
+            this.panelTop.Controls.Add(this.buttonNewSearch);
             this.panelTop.Controls.Add(this.buttonParse);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
@@ -77,23 +77,23 @@
             this.panelTop.Size = new System.Drawing.Size(1234, 90);
             this.panelTop.TabIndex = 0;
             // 
-            // button1
+            // buttonNewSearch
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(118)))), ((int)(((byte)(118)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(1001, 23);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(42, 42);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "+";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonNewSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNewSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.buttonNewSearch.FlatAppearance.BorderSize = 0;
+            this.buttonNewSearch.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.buttonNewSearch.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(118)))), ((int)(((byte)(118)))), ((int)(((byte)(118)))));
+            this.buttonNewSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonNewSearch.Font = new System.Drawing.Font("Roboto", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonNewSearch.ForeColor = System.Drawing.Color.White;
+            this.buttonNewSearch.Location = new System.Drawing.Point(1001, 23);
+            this.buttonNewSearch.Name = "buttonNewSearch";
+            this.buttonNewSearch.Size = new System.Drawing.Size(42, 42);
+            this.buttonNewSearch.TabIndex = 4;
+            this.buttonNewSearch.Text = "+";
+            this.buttonNewSearch.UseVisualStyleBackColor = false;
+            this.buttonNewSearch.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonParse
             // 
@@ -327,24 +327,6 @@
             this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellDoubleClick);
             this.dataGrid.SelectionChanged += new System.EventHandler(this.dataGrid_SelectionChanged);
             // 
-            // tableLayout
-            // 
-            this.tableLayout.AutoSize = true;
-            this.tableLayout.ColumnCount = 1;
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout.Controls.Add(this.panelTop, 0, 0);
-            this.tableLayout.Controls.Add(this.panel1, 0, 1);
-            this.tableLayout.Controls.Add(this.dataGrid, 0, 2);
-            this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayout.Location = new System.Drawing.Point(0, 0);
-            this.tableLayout.Name = "tableLayout";
-            this.tableLayout.RowCount = 3;
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayout.Size = new System.Drawing.Size(1234, 661);
-            this.tableLayout.TabIndex = 3;
-            // 
             // linkCol
             // 
             this.linkCol.HeaderText = "Link";
@@ -445,6 +427,24 @@
             this.ResultSearchId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ResultSearchId.Visible = false;
             // 
+            // tableLayout
+            // 
+            this.tableLayout.AutoSize = true;
+            this.tableLayout.ColumnCount = 1;
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayout.Controls.Add(this.panelTop, 0, 0);
+            this.tableLayout.Controls.Add(this.panel1, 0, 1);
+            this.tableLayout.Controls.Add(this.dataGrid, 0, 2);
+            this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayout.Location = new System.Drawing.Point(0, 0);
+            this.tableLayout.Name = "tableLayout";
+            this.tableLayout.RowCount = 3;
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.Size = new System.Drawing.Size(1234, 661);
+            this.tableLayout.TabIndex = 3;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -489,7 +489,7 @@
         private System.Windows.Forms.DataGridView dataGrid;
         private System.Windows.Forms.Button buttonParse;
         private System.Windows.Forms.TableLayoutPanel tableLayout;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonNewSearch;
         private System.Windows.Forms.DataGridViewTextBoxColumn linkCol;
         private System.Windows.Forms.DataGridViewImageColumn State;
         private System.Windows.Forms.DataGridViewImageColumn actionCol;
