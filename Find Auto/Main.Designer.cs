@@ -48,6 +48,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGrid = new System.Windows.Forms.DataGridView();
+            this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.linkCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.State = new System.Windows.Forms.DataGridViewImageColumn();
             this.actionCol = new System.Windows.Forms.DataGridViewImageColumn();
@@ -58,7 +59,6 @@
             this.locationCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResultSearchId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.panelTop.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
@@ -327,6 +327,24 @@
             this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellDoubleClick);
             this.dataGrid.SelectionChanged += new System.EventHandler(this.dataGrid_SelectionChanged);
             // 
+            // tableLayout
+            // 
+            this.tableLayout.AutoSize = true;
+            this.tableLayout.ColumnCount = 1;
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayout.Controls.Add(this.panelTop, 0, 0);
+            this.tableLayout.Controls.Add(this.panel1, 0, 1);
+            this.tableLayout.Controls.Add(this.dataGrid, 0, 2);
+            this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayout.Location = new System.Drawing.Point(0, 0);
+            this.tableLayout.Name = "tableLayout";
+            this.tableLayout.RowCount = 3;
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.Size = new System.Drawing.Size(1234, 661);
+            this.tableLayout.TabIndex = 3;
+            // 
             // linkCol
             // 
             this.linkCol.HeaderText = "Link";
@@ -363,13 +381,14 @@
             // 
             // modelCol
             // 
-            this.modelCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.modelCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.modelCol.HeaderText = "Model";
             this.modelCol.MinimumWidth = 160;
             this.modelCol.Name = "modelCol";
             this.modelCol.ReadOnly = true;
             this.modelCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.modelCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.modelCol.Width = 160;
             // 
             // descripionCol
             // 
@@ -392,31 +411,34 @@
             // 
             // mileageCol
             // 
-            this.mileageCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.mileageCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.mileageCol.HeaderText = "Mileage";
             this.mileageCol.MinimumWidth = 120;
             this.mileageCol.Name = "mileageCol";
             this.mileageCol.ReadOnly = true;
             this.mileageCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.mileageCol.Width = 120;
             // 
             // locationCol
             // 
-            this.locationCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.locationCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.locationCol.HeaderText = "Location";
             this.locationCol.MinimumWidth = 140;
             this.locationCol.Name = "locationCol";
             this.locationCol.ReadOnly = true;
             this.locationCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.locationCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.locationCol.Width = 140;
             // 
             // priceCol
             // 
-            this.priceCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.priceCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.priceCol.HeaderText = "Price";
             this.priceCol.MinimumWidth = 140;
             this.priceCol.Name = "priceCol";
             this.priceCol.ReadOnly = true;
             this.priceCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.priceCol.Width = 140;
             // 
             // ResultSearchId
             // 
@@ -426,24 +448,6 @@
             this.ResultSearchId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ResultSearchId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ResultSearchId.Visible = false;
-            // 
-            // tableLayout
-            // 
-            this.tableLayout.AutoSize = true;
-            this.tableLayout.ColumnCount = 1;
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout.Controls.Add(this.panelTop, 0, 0);
-            this.tableLayout.Controls.Add(this.panel1, 0, 1);
-            this.tableLayout.Controls.Add(this.dataGrid, 0, 2);
-            this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayout.Location = new System.Drawing.Point(0, 0);
-            this.tableLayout.Name = "tableLayout";
-            this.tableLayout.RowCount = 3;
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayout.Size = new System.Drawing.Size(1234, 661);
-            this.tableLayout.TabIndex = 3;
             // 
             // Main
             // 

@@ -88,7 +88,6 @@ namespace Find_Auto
         {
             ShowSearches searchesForm = new ShowSearches();
             searchesForm.StartPosition = FormStartPosition.CenterScreen;
-            //searchesForm.Owner = this;
             searchesForm.TopMost = true;
             searchesForm.ShowDialog();
 

@@ -205,7 +205,7 @@ namespace Find_Auto
                 {
                     connection.OpenAsync();
                     SqlCommand cmd = new SqlCommand(sqlString, connection);
-                    searchResultId = (int)cmd.ExecuteScalar();
+                    searchResultId = Convert.ToInt32(cmd.ExecuteScalar());
                 }
 
                 dataGrid.Rows.Add(linkParsed[i].Trim(),
