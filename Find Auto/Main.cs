@@ -109,9 +109,25 @@ namespace Find_Auto
             }
             else tMaxYear = "N/A";
 
-            //textBox1.Text = searchString;
-            labelYear.Text = tMinYear + " - " + tMaxYear;
-            labelPrice.Text = tMinPrice + " - " + tMaxPrice + "  €";
+            if((tMinYear == "N/A") && (tMaxYear == "N/A"))
+            {
+                labelYear.Text = "N/A";
+            }
+            else
+            {
+                labelYear.Text = tMinYear + " - " + tMaxYear;
+            }
+            if ((tMinPrice == "N/A") && (tMaxPrice == "N/A"))
+            {
+                labelPrice.Text = "N/A";
+            }
+            else
+            {
+                labelPrice.Text = tMinPrice + " - " + tMaxPrice + "  €";
+            }
+
+
+            
         }
 
         private void ButtonParse_Click(object sender, EventArgs e)
@@ -192,8 +208,8 @@ namespace Find_Auto
                     "OUTPUT INSERTED.[Id] " +
                     "VALUES " +
                     "(0, " +
-                    "'"+ modelParsed[i] + "'," +
-                    "'"+ descriptionParsed[i].TrimStart()+"', " +
+                    "'"+ modelParsed[i].Trim() + "'," +
+                    "'"+ descriptionParsed[i].Trim()+"', " +
                     "'"+ dataString[1].Trim()+"', " +
                     "'"+ dataString[2].Trim()+"', " +
                     "'"+ locationParsed[i].Substring(0, locationParsed[i].IndexOf('›'))+"', "+
@@ -211,8 +227,8 @@ namespace Find_Auto
                 dataGrid.Rows.Add(linkParsed[i].Trim(),
                     Properties.Resources.green,
                     img,
-                    modelParsed[i],
-                    descriptionParsed[i].TrimStart(),
+                    modelParsed[i].Trim(),
+                    descriptionParsed[i].Trim(),
                     dataString[1].Trim(),   //year
                     dataString[2].Trim(),   // mileage
                     locationParsed[i].Substring(0, locationParsed[i].IndexOf('›')),
@@ -248,7 +264,7 @@ namespace Find_Auto
             {
                 connection.OpenAsync();
                 SqlCommand cmd = new SqlCommand(sqlString, connection);
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQueryAsync();
             }
 
         }

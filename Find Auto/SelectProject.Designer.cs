@@ -84,7 +84,6 @@ namespace Find_Auto
             // buttonSelect
             // 
             this.buttonSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(66)))), ((int)(((byte)(234)))));
-            this.buttonSelect.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonSelect.FlatAppearance.BorderSize = 0;
             this.buttonSelect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(35)))), ((int)(((byte)(200)))));
             this.buttonSelect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(115)))), ((int)(((byte)(255)))));

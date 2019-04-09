@@ -27,7 +27,6 @@ namespace Find_Auto
                 comboBoxSite.DisplayMember = "sitename"; 
                 comboBoxSite.ValueMember = "tableprefix";            
                 comboBoxSite.SelectedIndex = -1;
-                connection.Close();
             }
             comboBoxMinPrice.Items.Add("1");
             comboBoxMinPrice.Items.Add("500");
@@ -139,7 +138,7 @@ namespace Find_Auto
             mainForm.maxYear = comboBoxMaxYear.Text;
 
             string sqlString = "INSERT INTO SavedSearches " +
-                "(site, brand, model, minyear, maxyear, minprice, maxprice) " +
+                "(site, brand, model, minyear, maxyear, minprice, maxprice, date) " +
                 "OUTPUT INSERTED.[Id] " +
                 "VALUES ('" + comboBoxSite.SelectedIndex + "'," +
                 "'" + mainForm.brandValue + "'," +
@@ -147,7 +146,8 @@ namespace Find_Auto
                 "'" + comboBoxMinYear.Text + "'," +
                 "'" + comboBoxMaxYear.Text + "'," +
                 "'" + comboBoxMinPrice.Text + "'," +
-                "'" + comboBoxMaxPrice.Text + "') " ;
+                "'" + comboBoxMaxPrice.Text + "', " +
+                " CURRENT_TIMESTAMP ) ";
             
 
             using (SqlConnection connection = new SqlConnection(connString))
