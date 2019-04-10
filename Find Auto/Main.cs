@@ -5,7 +5,10 @@ using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -35,7 +38,7 @@ namespace Find_Auto
         int searchResultId;
 
         HtmlLoader loader;
-
+        Bitmap img;
         Parsing parsing;
 
         public Main()
@@ -178,8 +181,6 @@ namespace Find_Auto
                         ParsingAllData(document);
                     }
                 }
-
-            
             isLoading = false;
         }
 
@@ -196,11 +197,18 @@ namespace Find_Auto
             for (int i = 0; i < modelParsed.Length; i++)
             {
                 string[] imgSrc = linkParsed[i].Split(new char[] { '/' });
-                imgId = imgSrc[imgSrc.Length - 1];
-                WebClient wc = new WebClient();
+                imgId = imgSrc[imgSrc.Length - 1];             
                 var imgParsed = parsing.ParseImgs(document, imgId);
                 Uri uri = new Uri(imgParsed[0]);
-                Image img = new Bitmap(wc.OpenRead(uri));
+                string url = imgParsed[0];
+                var imgBytes = loader.GetImageBytes(url); 
+
+                WebClient wc = new WebClient();
+                wc.OpenReadCompleted += new OpenReadCompletedEventHandler(wc_OpenReadCompleted);
+                wc.OpenReadAsync(uri);
+
+                //Bitmap img = new Bitmap(wc.OpenRead(uri));
+                //wc.OpenReadTaskAsync(uri);
                 string[] dataString = year_mileageParsed[i].Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); ;
 
                 string sqlString = "INSERT INTO Searches " +
@@ -215,7 +223,7 @@ namespace Find_Auto
                     "'"+ locationParsed[i].Substring(0, locationParsed[i].IndexOf('›'))+"', "+
                     "'" + priceParsed[i].Trim()+"', " +
                     "'"+ linkParsed[i].Trim()+"', " +
-                    "'"+ imgParsed[0]+"', " +
+                    "'"+ imgParsed[0].Trim() + "', " +
                     " "+ searchId+" )" ;
                 using (SqlConnection connection = new SqlConnection(connString))
                 {
@@ -239,6 +247,17 @@ namespace Find_Auto
 
             }
         }
+
+        private void wc_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
+        {
+            Stream s = e.Result;
+            StreamReader strReader = new StreamReader(s);
+            img = new Bitmap(s);
+            //txtDataFromXml.Text = strReader.ReadToEnd();
+            s.Close();
+        }
+
+
 
 
         //

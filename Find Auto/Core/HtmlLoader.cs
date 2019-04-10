@@ -8,6 +8,8 @@ namespace Find_Auto
     {
         HttpClient client = new HttpClient();
 
+
+
         public async Task<string> GetSource(string currentUrl)
         {
            
@@ -21,5 +23,19 @@ namespace Find_Auto
 
             return source;
         }
+
+        public async Task<byte[]> GetImageBytes(string url)
+        {
+            byte[] bytes;
+
+            bytes = await client.GetByteArrayAsync(url);
+
+            if (bytes != null)
+            {
+                return bytes;
+            }
+            return null;
+        }
+
     }
 }

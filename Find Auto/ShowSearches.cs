@@ -30,6 +30,7 @@ namespace Find_Auto
 
         private async Task GetSavedSearches()
         {
+            dataGridSearches.Rows.Clear();
             string sqlQuery = "SELECT * FROM SavedSearches ORDER BY date DESC";
             using (SqlConnection connection = new SqlConnection(connString))
             {
@@ -70,11 +71,11 @@ namespace Find_Auto
                         }
                         else if ((tminYear == "") && (tmaxYear != ""))
                         {
-                            year = tmaxYear;
+                            year = "to " + tmaxYear;
                         }
                         else if ((tminYear != "") && (tmaxYear == ""))
                         {
-                            year = tminYear;
+                            year = "from "+tminYear;
                         }
                         else
                         {
@@ -87,11 +88,11 @@ namespace Find_Auto
                         }
                         else if ((tminPrice == "") && (tmaxPrice != ""))
                         {
-                            price = tmaxPrice;
+                            price = "to "+tmaxPrice;
                         }
                         else if ((tminPrice != "") && (tmaxPrice == ""))
                         {
-                            price = tminPrice;
+                            price = "from " + tminPrice;
                         }
                         else
                         {
@@ -112,6 +113,25 @@ namespace Find_Auto
                 }
                 reader.Close();
             }
+        }
+
+        private void buttonParse_Click(object sender, EventArgs e)
+        {
+            var _searchId = dataGridSearches.CurrentRow.Cells[0].Value;
+            MessageBox.Show(_searchId.ToString());
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            var _searchId = dataGridSearches.CurrentRow.Cells[0].Value;
+            string _deleteQuery = "DELETE FROM SavedSearches WHERE Id='"+ _searchId+"' ";
+            using (SqlConnection connection = new SqlConnection(connString))
+            {
+                connection.OpenAsync();
+                SqlCommand cmd = new SqlCommand(_deleteQuery, connection);
+                cmd.ExecuteNonQuery();
+            }
+            GetSavedSearches().GetAwaiter();
         }
     }
 }

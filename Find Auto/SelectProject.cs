@@ -88,14 +88,8 @@ namespace Find_Auto
             ShowSearches searchesForm = new ShowSearches();
             searchesForm.StartPosition = FormStartPosition.CenterScreen;
             searchesForm.TopMost = true;
+            //Close();
             searchesForm.ShowDialog();
-
-            //   openDialog.InitialDirectory = Application.CommonAppDataPath;
-            //   if (openDialog.ShowDialog() == DialogResult.Cancel || openDialog.ShowDialog() == DialogResult.Abort)
-            //   {
-            //      
-            //   }
-
         }
 
         private void comboBoxSite_SelectionChangeCommitted(object sender, EventArgs e)
@@ -158,7 +152,7 @@ namespace Find_Auto
             }
             mainForm.searchId = insertedId;
 
-            Hide();
+            Close();
         }
 
 
