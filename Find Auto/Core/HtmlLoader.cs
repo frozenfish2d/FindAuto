@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Drawing;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -24,18 +25,6 @@ namespace Find_Auto
             return source;
         }
 
-        public async Task<byte[]> GetImageBytes(string url)
-        {
-            byte[] bytes;
-
-            bytes = await client.GetByteArrayAsync(url);
-
-            if (bytes != null)
-            {
-                return bytes;
-            }
-            return null;
-        }
 
     }
 }

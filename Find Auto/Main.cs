@@ -38,7 +38,7 @@ namespace Find_Auto
         int searchResultId;
 
         HtmlLoader loader;
-        Bitmap img;
+        //Bitmap img;
         Parsing parsing;
 
         public Main()
@@ -184,7 +184,7 @@ namespace Find_Auto
             isLoading = false;
         }
 
-        private void ParsingAllData(IHtmlDocument document)
+        private async void ParsingAllData(IHtmlDocument document)
         {
             var modelParsed = parsing.ParseModels(document);
             var descriptionParsed = parsing.ParseDescriptions(document);
@@ -201,14 +201,11 @@ namespace Find_Auto
                 var imgParsed = parsing.ParseImgs(document, imgId);
                 Uri uri = new Uri(imgParsed[0]);
                 string url = imgParsed[0];
-                var imgBytes = loader.GetImageBytes(url); 
 
-                WebClient wc = new WebClient();
-                wc.OpenReadCompleted += new OpenReadCompletedEventHandler(wc_OpenReadCompleted);
-                wc.OpenReadAsync(uri);
+                HttpClient http = new HttpClient();
+                var bytes = await http.GetByteArrayAsync(url);
+                Image img = (Bitmap)((new ImageConverter()).ConvertFrom(bytes));
 
-                //Bitmap img = new Bitmap(wc.OpenRead(uri));
-                //wc.OpenReadTaskAsync(uri);
                 string[] dataString = year_mileageParsed[i].Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries); ;
 
                 string sqlString = "INSERT INTO Searches " +
@@ -227,7 +224,7 @@ namespace Find_Auto
                     " "+ searchId+" )" ;
                 using (SqlConnection connection = new SqlConnection(connString))
                 {
-                    connection.OpenAsync();
+                    await connection.OpenAsync();
                     SqlCommand cmd = new SqlCommand(sqlString, connection);
                     searchResultId = Convert.ToInt32(cmd.ExecuteScalar());
                 }
@@ -247,17 +244,6 @@ namespace Find_Auto
 
             }
         }
-
-        private void wc_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
-        {
-            Stream s = e.Result;
-            StreamReader strReader = new StreamReader(s);
-            img = new Bitmap(s);
-            //txtDataFromXml.Text = strReader.ReadToEnd();
-            s.Close();
-        }
-
-
 
 
         //
