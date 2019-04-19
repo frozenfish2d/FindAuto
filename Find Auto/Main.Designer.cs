@@ -30,9 +30,18 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelTop = new System.Windows.Forms.Panel();
             this.buttonNewSearch = new System.Windows.Forms.Button();
             this.buttonParse = new System.Windows.Forms.Button();
@@ -49,6 +58,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.linkCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.State = new System.Windows.Forms.DataGridViewImageColumn();
             this.actionCol = new System.Windows.Forms.DataGridViewImageColumn();
@@ -68,6 +78,7 @@
             // panelTop
             // 
             this.panelTop.BackColor = System.Drawing.Color.White;
+            this.panelTop.Controls.Add(this.textBox1);
             this.panelTop.Controls.Add(this.buttonNewSearch);
             this.panelTop.Controls.Add(this.buttonParse);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -301,16 +312,16 @@
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.ReadOnly = true;
             this.dataGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dataGrid.RowHeadersVisible = false;
-            this.dataGrid.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGrid.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dataGrid.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Roboto", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dataGrid.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
@@ -322,6 +333,10 @@
             this.dataGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGrid.ShowCellErrors = false;
+            this.dataGrid.ShowCellToolTips = false;
+            this.dataGrid.ShowEditingIcon = false;
+            this.dataGrid.ShowRowErrors = false;
             this.dataGrid.Size = new System.Drawing.Size(1234, 495);
             this.dataGrid.TabIndex = 2;
             this.dataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellDoubleClick);
@@ -345,8 +360,18 @@
             this.tableLayout.Size = new System.Drawing.Size(1234, 661);
             this.tableLayout.TabIndex = 3;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(25, 46);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(949, 32);
+            this.textBox1.TabIndex = 5;
+            // 
             // linkCol
             // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.linkCol.DefaultCellStyle = dataGridViewCellStyle3;
             this.linkCol.HeaderText = "Link";
             this.linkCol.Name = "linkCol";
             this.linkCol.ReadOnly = true;
@@ -357,21 +382,23 @@
             // 
             // State
             // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle4.NullValue")));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.State.DefaultCellStyle = dataGridViewCellStyle4;
             this.State.HeaderText = "";
-            this.State.MinimumWidth = 40;
+            this.State.MinimumWidth = 50;
             this.State.Name = "State";
             this.State.ReadOnly = true;
             this.State.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.State.Width = 40;
+            this.State.Width = 50;
             // 
             // actionCol
             // 
             this.actionCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle3.NullValue")));
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
-            this.actionCol.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.NullValue = ((object)(resources.GetObject("dataGridViewCellStyle5.NullValue")));
+            this.actionCol.DefaultCellStyle = dataGridViewCellStyle5;
             this.actionCol.HeaderText = "Preview";
             this.actionCol.MinimumWidth = 160;
             this.actionCol.Name = "actionCol";
@@ -381,17 +408,24 @@
             // 
             // modelCol
             // 
-            this.modelCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.modelCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.modelCol.DefaultCellStyle = dataGridViewCellStyle6;
             this.modelCol.HeaderText = "Model";
-            this.modelCol.MinimumWidth = 160;
+            this.modelCol.MinimumWidth = 200;
             this.modelCol.Name = "modelCol";
             this.modelCol.ReadOnly = true;
             this.modelCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.modelCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.modelCol.Width = 200;
             // 
             // descripionCol
             // 
             this.descripionCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.descripionCol.DefaultCellStyle = dataGridViewCellStyle7;
             this.descripionCol.HeaderText = "Descripion";
             this.descripionCol.MinimumWidth = 350;
             this.descripionCol.Name = "descripionCol";
@@ -402,6 +436,9 @@
             // yearCol
             // 
             this.yearCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.yearCol.DefaultCellStyle = dataGridViewCellStyle8;
             this.yearCol.HeaderText = "Year";
             this.yearCol.MinimumWidth = 100;
             this.yearCol.Name = "yearCol";
@@ -411,6 +448,9 @@
             // mileageCol
             // 
             this.mileageCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle9.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.mileageCol.DefaultCellStyle = dataGridViewCellStyle9;
             this.mileageCol.HeaderText = "Mileage";
             this.mileageCol.MinimumWidth = 120;
             this.mileageCol.Name = "mileageCol";
@@ -421,6 +461,9 @@
             // locationCol
             // 
             this.locationCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle10.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.locationCol.DefaultCellStyle = dataGridViewCellStyle10;
             this.locationCol.HeaderText = "Location";
             this.locationCol.MinimumWidth = 140;
             this.locationCol.Name = "locationCol";
@@ -432,6 +475,9 @@
             // priceCol
             // 
             this.priceCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle11.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.priceCol.DefaultCellStyle = dataGridViewCellStyle11;
             this.priceCol.HeaderText = "Price";
             this.priceCol.MinimumWidth = 140;
             this.priceCol.Name = "priceCol";
@@ -441,6 +487,9 @@
             // 
             // ResultSearchId
             // 
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle12.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.ResultSearchId.DefaultCellStyle = dataGridViewCellStyle12;
             this.ResultSearchId.HeaderText = "SearchResultId";
             this.ResultSearchId.Name = "ResultSearchId";
             this.ResultSearchId.ReadOnly = true;
@@ -465,6 +514,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.Main_Activated);
             this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
@@ -493,6 +543,7 @@
         private System.Windows.Forms.Button buttonParse;
         private System.Windows.Forms.TableLayoutPanel tableLayout;
         private System.Windows.Forms.Button buttonNewSearch;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn linkCol;
         private System.Windows.Forms.DataGridViewImageColumn State;
         private System.Windows.Forms.DataGridViewImageColumn actionCol;

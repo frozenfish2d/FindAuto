@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Find_Auto.Core;
+using System;
 
 using System.Data;
 using System.Data.SqlClient;
@@ -117,26 +118,24 @@ namespace Find_Auto
 
         private void buttonCreateNew_Click(object sender, EventArgs e)
         {
-            Main mainForm = this.Owner as Main;
-            mainForm.searchId = insertedId;
-            mainForm.siteId = comboBoxSite.SelectedIndex;
+            SearchParameters.siteId = comboBoxSite.SelectedIndex;
             if (comboBoxBrand.SelectedIndex >= 0)
-                mainForm.brandValue = comboBoxBrand.SelectedValue.ToString();
-            mainForm.brandName = comboBoxBrand.Text;
+                SearchParameters.brandValue = comboBoxBrand.SelectedValue.ToString();
+            SearchParameters.brandName = comboBoxBrand.Text;
             if (comboBoxModel.SelectedIndex >= 0)
-                mainForm.modelValue = comboBoxModel.SelectedValue.ToString();
-            mainForm.modelName = comboBoxModel.Text;
-            mainForm.minPrice = comboBoxMinPrice.Text;
-            mainForm.maxPrice = comboBoxMaxPrice.Text;
-            mainForm.minYear = comboBoxMinYear.Text;
-            mainForm.maxYear = comboBoxMaxYear.Text;
+                SearchParameters.modelValue = comboBoxModel.SelectedValue.ToString();
+            SearchParameters.modelName = comboBoxModel.Text;
+            SearchParameters.minPrice = comboBoxMinPrice.Text;
+            SearchParameters.maxPrice = comboBoxMaxPrice.Text;
+            SearchParameters.minYear = comboBoxMinYear.Text;
+            SearchParameters.maxYear = comboBoxMaxYear.Text;
 
             string sqlString = "INSERT INTO SavedSearches " +
                 "(site, brand, model, minyear, maxyear, minprice, maxprice, date) " +
                 "OUTPUT INSERTED.[Id] " +
                 "VALUES ('" + comboBoxSite.SelectedIndex + "'," +
-                "'" + mainForm.brandValue + "'," +
-                "'" + mainForm.modelValue + "'," +
+                "'" + SearchParameters.brandValue + "'," +
+                "'" + SearchParameters.modelValue + "'," +
                 "'" + comboBoxMinYear.Text + "'," +
                 "'" + comboBoxMaxYear.Text + "'," +
                 "'" + comboBoxMinPrice.Text + "'," +
@@ -150,8 +149,8 @@ namespace Find_Auto
                 SqlCommand cmd = new SqlCommand(sqlString, connection);
                 insertedId = (int) cmd.ExecuteScalar();
             }
-            mainForm.searchId = insertedId;
-
+            SearchParameters.searchId = insertedId;
+            SearchParameters.isNewSearch = true;
             Close();
         }
 

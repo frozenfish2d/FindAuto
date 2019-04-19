@@ -131,7 +131,7 @@ namespace Find_Auto
                         reader.Read();
 
                         SearchParameters.searchId = (int)_searchId;
-                        /*SearchParameters.siteId = (int)reader.GetValue(1);
+                        SearchParameters.siteId = 0;
                         SearchParameters.brandValue = reader.GetValue(2).ToString();
                         SearchParameters.brandName = reader.GetValue(2).ToString();
                         SearchParameters.modelValue = reader.GetValue(3).ToString();
@@ -140,7 +140,7 @@ namespace Find_Auto
                         SearchParameters.maxYear = reader.GetValue(5).ToString();
                         SearchParameters.minPrice = reader.GetValue(6).ToString();
                         SearchParameters.maxPrice = reader.GetValue(7).ToString();
-                        */
+                        SearchParameters.isNewSearch = false;
                     }
                 }
                 Close();
@@ -151,13 +151,14 @@ namespace Find_Auto
         {
             if (dataGridSearches.Rows.Count > 0)
             {
-                var _searchId = dataGridSearches.CurrentRow.Cells[0].Value;
+                var searchId = dataGridSearches.CurrentRow.Cells[0].Value;
 
-                string _deleteQuery = "DELETE FROM SavedSearches WHERE Id='" + _searchId + "' ";
+                string deleteQuery = "DELETE FROM SavedSearches WHERE Id='" + searchId + "'; " +
+                    "DELETE FROM Searches WHERE searchid='" + searchId + "' ";
                 using (SqlConnection connection = new SqlConnection(connString))
                 {
                     connection.OpenAsync();
-                    SqlCommand cmd = new SqlCommand(_deleteQuery, connection);
+                    SqlCommand cmd = new SqlCommand(deleteQuery, connection);
                     cmd.ExecuteNonQuery();
                 }
                 GetSavedSearches().GetAwaiter();

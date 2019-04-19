@@ -144,6 +144,12 @@
     <Compile Include="ShowSearches.Designer.cs">
       <DependentUpon>ShowSearches.cs</DependentUpon>
     </Compile>
+    <Compile Include="Viewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Viewer.Designer.cs">
+      <DependentUpon>Viewer.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ShowSearches.resx">
       <DependentUpon>ShowSearches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Viewer.resx">
+      <DependentUpon>Viewer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Find Auto_TemporaryKey.pfx" />
     <None Include="packages.config" />
@@ -206,6 +215,7 @@
     <None Include="gray.png" />
     <None Include="purp.png" />
     <Content Include="icon.ico" />
+    <None Include="red.png" />
     <Content Include="searchData.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -93,5 +93,27 @@ namespace Find_Auto.Core
             }
             return list.ToArray();
         }
+        //div msg
+        public int ParseEmpty(IHtmlDocument document)
+        {
+            var list = new List<string>();
+            var items = document.QuerySelectorAll("div").Where(item => item.Id != null && item.Id.Equals("msg"));
+            foreach (var item in items)
+            {
+                list.Add(item.TextContent);
+            }
+            return list.Count;
+        }
+
+        public string[] ViewerImages(IHtmlDocument document)
+        {
+            var list = new List<string>();
+            var items = document.QuerySelectorAll("div").Where(item => item.ClassName != null && item.ClassName.Contains("image_align"));
+            foreach (var item in items)
+            {
+                list.Add(item.GetAttribute("data-ipath"));
+            }
+            return list.ToArray();
+        }
     }
 }
