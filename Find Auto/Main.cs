@@ -38,7 +38,6 @@ namespace Find_Auto
         int searchResultId;
 
         HtmlLoader loader;
-        //Bitmap img;
         Parsing parsing;
 
         public Main()
@@ -47,6 +46,7 @@ namespace Find_Auto
             connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Find Auto\Find Auto\searchData.mdf;Integrated Security=True;Connect Timeout=30";
             StartPosition = FormStartPosition.CenterScreen;
             SelectProject selectForm = new SelectProject();
+            //ShowSearches showSearches = new ShowSearches();
             selectForm.StartPosition = FormStartPosition.CenterScreen;
             selectForm.Owner = this;
             selectForm.TopMost = true;
@@ -135,12 +135,16 @@ namespace Find_Auto
 
         private void ButtonParse_Click(object sender, EventArgs e)
         {
-            if (!isLoading)
+            if (!isLoading && SearchParameters.searchId == 0)
             {
                 dataGrid.Rows.Clear();
                 LoadingData();
             }
-
+            if(!isLoading && SearchParameters.searchId > 0)
+            {
+                dataGrid.Rows.Clear();
+                LoadSavedData(SearchParameters.searchId);
+            }
         }
         public async void LoadingData()
         {
@@ -156,7 +160,7 @@ namespace Find_Auto
                 }
             else if (pages > 10)
                 {
-                    string message = "Search result contains "+pages * 30 + " lines.\nLoading will take a lot of time.\nAre you want to proceed?";
+                    string message = "Search result contains "+pages * 30 + " lines.\nLoading will take a lot of time.\nDo you want to proceed?";
                     string caption = "Search result is too big";
                     MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                     DialogResult result;
@@ -184,6 +188,46 @@ namespace Find_Auto
             isLoading = false;
         }
 
+        private async void LoadSavedData(int id)
+        {
+            isLoading = true;
+
+            string sqlString = "SELECT * FROM Searches WHERE searchid = '"+id+"' ";
+            using (SqlConnection connection = new SqlConnection(connString))
+            {
+                await connection.OpenAsync();
+                SqlCommand cmd = new SqlCommand(sqlString, connection);
+                SqlDataReader reader = await cmd.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+                    dataGrid.ClearSelection();
+                    while (await reader.ReadAsync())
+                    {
+
+                        HttpClient http = new HttpClient();
+                        var bytes = await http.GetByteArrayAsync(reader.GetValue(9).ToString());
+                        Image img = (Bitmap)((new ImageConverter()).ConvertFrom(bytes));
+                        dataGrid.Rows.Add(
+                            reader.GetValue(8),
+                            Properties.Resources.green,
+                            img,
+                            reader.GetValue(2),
+                            reader.GetValue(3),
+                            reader.GetValue(4),
+                            reader.GetValue(5),
+                            reader.GetValue(6),
+                            reader.GetValue(7),
+                            reader.GetValue(0)
+                            );
+                        
+                    }
+                }
+            }
+            isLoading = false;
+
+        }
+
+
         private async void ParsingAllData(IHtmlDocument document)
         {
             var modelParsed = parsing.ParseModels(document);
@@ -199,7 +243,6 @@ namespace Find_Auto
                 string[] imgSrc = linkParsed[i].Split(new char[] { '/' });
                 imgId = imgSrc[imgSrc.Length - 1];             
                 var imgParsed = parsing.ParseImgs(document, imgId);
-                Uri uri = new Uri(imgParsed[0]);
                 string url = imgParsed[0];
 
                 HttpClient http = new HttpClient();
@@ -256,7 +299,7 @@ namespace Find_Auto
 
 
         //Open in browser and change state to 1
-        private void dataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1)
                 return;
@@ -267,9 +310,9 @@ namespace Find_Auto
             string sqlString = "UPDATE Searches SET state=1 WHERE Id='" + id + "' "  ;
             using (SqlConnection connection = new SqlConnection(connString))
             {
-                connection.OpenAsync();
+                await connection.OpenAsync();
                 SqlCommand cmd = new SqlCommand(sqlString, connection);
-                cmd.ExecuteNonQueryAsync();
+                await cmd.ExecuteNonQueryAsync();
             }
 
         }

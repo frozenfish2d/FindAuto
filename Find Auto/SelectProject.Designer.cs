@@ -84,6 +84,7 @@ namespace Find_Auto
             // buttonSelect
             // 
             this.buttonSelect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(66)))), ((int)(((byte)(234)))));
+            this.buttonSelect.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonSelect.FlatAppearance.BorderSize = 0;
             this.buttonSelect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(35)))), ((int)(((byte)(200)))));
             this.buttonSelect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(115)))), ((int)(((byte)(255)))));
@@ -283,6 +284,7 @@ namespace Find_Auto
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.CancelButton = this.buttonSelect;
             this.ClientSize = new System.Drawing.Size(450, 570);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);

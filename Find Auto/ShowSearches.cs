@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Find_Auto.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -108,7 +109,6 @@ namespace Find_Auto
                             year,
                             price
                             );
-
                     }
                 }
                 reader.Close();
@@ -117,21 +117,51 @@ namespace Find_Auto
 
         private void buttonParse_Click(object sender, EventArgs e)
         {
-            var _searchId = dataGridSearches.CurrentRow.Cells[0].Value;
-            MessageBox.Show(_searchId.ToString());
+            if (dataGridSearches.Rows.Count > 0)
+            {
+                var _searchId = dataGridSearches.CurrentRow.Cells[0].Value;
+                string sqlQuery = "SELECT * FROM SavedSearches WHERE Id='" + _searchId + "' ";
+                using (SqlConnection connection = new SqlConnection(connString))
+                {
+                    connection.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(sqlQuery, connection);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+
+                        SearchParameters.searchId = (int)_searchId;
+                        /*SearchParameters.siteId = (int)reader.GetValue(1);
+                        SearchParameters.brandValue = reader.GetValue(2).ToString();
+                        SearchParameters.brandName = reader.GetValue(2).ToString();
+                        SearchParameters.modelValue = reader.GetValue(3).ToString();
+                        SearchParameters.modelName = reader.GetValue(3).ToString();
+                        SearchParameters.minYear = reader.GetValue(4).ToString();
+                        SearchParameters.maxYear = reader.GetValue(5).ToString();
+                        SearchParameters.minPrice = reader.GetValue(6).ToString();
+                        SearchParameters.maxPrice = reader.GetValue(7).ToString();
+                        */
+                    }
+                }
+                Close();
+            }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            var _searchId = dataGridSearches.CurrentRow.Cells[0].Value;
-            string _deleteQuery = "DELETE FROM SavedSearches WHERE Id='"+ _searchId+"' ";
-            using (SqlConnection connection = new SqlConnection(connString))
+            if (dataGridSearches.Rows.Count > 0)
             {
-                connection.OpenAsync();
-                SqlCommand cmd = new SqlCommand(_deleteQuery, connection);
-                cmd.ExecuteNonQuery();
+                var _searchId = dataGridSearches.CurrentRow.Cells[0].Value;
+
+                string _deleteQuery = "DELETE FROM SavedSearches WHERE Id='" + _searchId + "' ";
+                using (SqlConnection connection = new SqlConnection(connString))
+                {
+                    connection.OpenAsync();
+                    SqlCommand cmd = new SqlCommand(_deleteQuery, connection);
+                    cmd.ExecuteNonQuery();
+                }
+                GetSavedSearches().GetAwaiter();
             }
-            GetSavedSearches().GetAwaiter();
         }
     }
 }

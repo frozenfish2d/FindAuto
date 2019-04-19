@@ -115,6 +115,7 @@
   <ItemGroup>
     <Compile Include="Core\HtmlLoader.cs" />
     <Compile Include="Core\Parsing.cs" />
+    <Compile Include="Core\SearchParameters.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
